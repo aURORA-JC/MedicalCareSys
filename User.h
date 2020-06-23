@@ -7,23 +7,24 @@ using namespace std;
 class User :public Identity {
 public:
 	User();
-	User(string userId, string userName, int userAge, string idCardNum, string userNation, string idClass, bool inHospital, double cardBalance, string MedicalCareBelongsArea);
+	User(long long usrUid, string usrMedicalCardNum, string usrName, int usrAge, string usrSex, string usrIdCardNum, string usrNation, string usrIdClass, bool usrInHospital, double cardBalance, string MedicalCareBelongsArea);
 	virtual void openMenu();
+	void showInfo();
 	void addCredit();
 	void showBill();
-	void searchBill();
 	void payBill();
 	friend class Admin;
 	friend void printUser(User&);
 private:
-	string userId;
-	string userName;
-	int userAge;
-	// string userSex;
-	string idCardNum;
-	string userNation;
-	string idClass;
-	bool inHsopital;
-	double cardBanlance;
-	string MedialCareBelongsArea;
+	string usrMedicalCardNum;
+	long long usrUid;
+	string usrName;
+	int usrAge;
+	string usrSex;
+	string usrIdCardNum;
+	string usrNation;
+	string usrIdClass;
+	bool usrInHospital;
+	double usrCardBanlance;
+	string usrCareArea;
 };

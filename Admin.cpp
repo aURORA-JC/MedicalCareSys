@@ -1,102 +1,122 @@
 #include "Admin.h"
 
+// 显示格式设定
+void printUser(User& u);
+void printHospital(Hospital& h);
+void printBill(Bill& b);
 
+// 构造函数
 Admin::Admin() {
 
 }
 
+// 含参构造函数
 Admin::Admin(string adminId, string adminName, string adminArea) {
 	this->adminId = adminId;
 	this->adminName = adminName;
 	this->adminArea = adminArea;
 
+	// 初始化内存
 	this->initVector();
 }
 
+// 管理员菜单
 void Admin::openMenu() {
 	cout << "欢迎回来，管理员：" << this->adminName << endl;
 	cout << " --------------------------------------------------------\n"
 		<< "|                                                        |\n"
-		<< "|         1.添加用户  2.添加定点医院  3.添加账单         |\n"
+		<< "|            1.添加用户         2.添加定点医院           |\n"
 		<< "|                                                        |\n"
-		<< "|         4.列出用户  5.列出定点医院  6.列出账单         |\n"
+		<< "|            3.列出用户         4.列出定点医院           |\n"
 		<< "|                                                        |\n"
-		<< "|         7.搜索用户  8.搜索定点医院  9.搜索账单         |\n"
+		<< "|            5.搜索用户         6.搜索定点医院           |\n"
 		<< "|                                                        |\n"
-		<< "|         10.删除用户 11.删除定点医院 12.删除账单        |\n"
+		<< "|            7.删除用户         8.删除定点医院           |\n"
 		<< "|                                                        |\n"
-		<< "|         13.清除全部数据             0.注销             |\n"
+		<< "|            9.清除全部数据     0.注销                   |\n"
+		<< "|                                                        |\n"
 		<< " --------------------------------------------------------\n"
 		<< "请选择：";
 }
 
+// 添加用户
 void Admin::addUser() {
 	ofstream ofs;
 	ofs.open(USER_FILE,ios::out | ios::app);
 	
 	int addNum;
-	cout << "添加投保人数量：" << endl;
+	cout << "添加用户数量：" << endl;
 	cin >> addNum;
 
 	for (int i = 0; i < addNum; i++) {
-		cout << "添加第 【 " << i+1 << " 】个投保人" << endl;
+		cout << "添加第 【 " << i+1 << " 】个用户" << endl;
 
-		string f2Id;
+		long long w2usrUid;
+		cout << "设置用户编号：" << endl;
+		cin >> w2usrUid;
+
+		string w2usrMedicalCardNum;
 		cout << "输入医保卡号：" << endl;
-		cin >> f2Id;
+		cin >> w2usrMedicalCardNum;
 
-		if (this->checkRepeat(f2Id, 1)) {
-			cout << "医保卡号重复！录入终止！" << endl;
-			break;
+		if (checkRepeat(w2usrMedicalCardNum, 1)) {
+			cout << "医保卡号已存在！" << endl;
+			continue;
 		}
 
-		string f2Name;
+		string w2sysName;
 		cout << "输入医保系统用户名：" << endl;
-		cin >> f2Name;
+		cin >> w2sysName;
 
-		string f2Pwd;
+		string w2sysPassword;
 		cout << "设置医保系统密码：" << endl;
-		cin >> f2Pwd;
+		cin >> w2sysPassword;
 
-		string f2usrName;
-		cout << "输入投保人姓名：" << endl;
-		cin >> f2usrName;
+		string w2usrName;
+		cout << "输入用户姓名：" << endl;
+		cin >> w2usrName;
 
-		int f2age;
-		cout << "输入投保人年龄：" << endl;
-		cin >> f2age;
+		int w2usrAge;
+		cout << "输入用户年龄：" << endl;
+		cin >> w2usrAge;
 
-		string f2idCardNum;
-		cout << "输入投保人证件号：" << endl;
-		cin >> f2idCardNum;
+		string w2usrSex;
+		cout << "输入用户性别：" << endl;
+		cin >> w2usrSex;
 
-		string f2usrNation;
-		cout << "输入投保人民族：" << endl;
-		cin >> f2usrNation;
+		string w2usrIdCardNum;
+		cout << "输入用户证件号：" << endl;
+		cin >> w2usrIdCardNum;
 
-		string f2idClass;
-		cout << "输入投保人类别：" << endl;
-		cin >> f2idClass;
+		string w2usrNation;
+		cout << "输入用户民族：" << endl;
+		cin >> w2usrNation;
 
-		bool f2inHosp;
-		string statu;
-		cout << "投保人当前是否住院（是、否）：" << endl;
-		cin >> statu;
-		if (statu == "是")
-			f2inHosp = 0;
-		else
-			f2inHosp = 1;
+		string w2usrIdClass;
+		cout << "输入用户类别：" << endl;
+		cin >> w2usrIdClass;
 
-		double f2cardBalance = 0;
+		bool w2usrInHospital;
+		string status;
+		cout << "用户当前是否住院（是、否）：" << endl;
+		cin >> status;
+		if (status == "是") {
+			w2usrInHospital = 0;
+		}
+		else {
+			w2usrInHospital = 1;
+		}
+
+		double w2usrCardBalance = 0;
 		cout << "输入医保卡余额" << endl;
-		cin >> f2cardBalance;
+		cin >> w2usrCardBalance;
 
-		string f2medicalArea;
+		string w2usrCareArea;
 		cout << "输入医保所属地" << endl;
-		cin >> f2medicalArea;
+		cin >> w2usrCareArea;
 
 		cout << "信息录入中..." << endl;
-		ofs << f2Id << " " << f2Name << " " << f2Pwd << " " << f2usrName << " " << f2age << " " << f2idCardNum << " " << f2usrNation << " " << f2idClass << " " << f2inHosp << " " << f2cardBalance << " " << f2medicalArea << endl;
+		ofs << w2usrUid << " " << w2sysName << " " << w2sysPassword << " " << w2usrMedicalCardNum << " "<< w2usrName << " " << w2usrAge << " " << w2usrSex << " " << w2usrIdCardNum << " " << w2usrNation << " " << w2usrIdClass << " " << w2usrInHospital << " " << w2usrCardBalance << " " << w2usrCareArea << endl;
 		cout << "录入成功！" << endl;
 
 		system("pause");
@@ -104,10 +124,10 @@ void Admin::addUser() {
 	}
 
 	system("cls");
-	this->initVector();
 	ofs.close();
 }
 
+// 添加定点医院
 void Admin::addHospital() {
 	ofstream ofs;
 	ofs.open(HOSPITAL_FILE, ios::out | ios::app);
@@ -119,37 +139,41 @@ void Admin::addHospital() {
 	for (int i = 0; i < addNum; i++) {
 		cout << "添加第 【 " << i + 1 << " 】个定点医院" << endl;
 
-		string f2Id;
+		long long w2hospitalHid;
+		cout << "设置医院编号：" << endl;
+		cin >> w2hospitalHid;
+		
+		string w2hospitalId;
 		cout << "输入定点医院机构号：" << endl;
-		cin >> f2Id;
+		cin >> w2hospitalId;
 
-		if (this->checkRepeat(f2Id, 1)) {
-			cout << "定点医院机构号重复！录入终止！" << endl;
-			break;
+		if (checkRepeat(w2hospitalId, 1)) {
+			cout << "定点医院机构号已存在！" << endl;
+			continue;
 		}
 
-		string f2Name;
+		string w2hospitalUsrName;
 		cout << "输入医保系统用户名：" << endl;
-		cin >> f2Name;
+		cin >> w2hospitalUsrName;
 
-		string f2Pwd;
+		string w2hospitalPasswd;
 		cout << "设置医保系统密码：" << endl;
-		cin >> f2Pwd;
+		cin >> w2hospitalPasswd;
 
-		string f2hospName;
+		string w2hospitalName;
 		cout << "输入医院名称：" << endl;
-		cin >> f2hospName;
+		cin >> w2hospitalName;
 
-		int f2level;
+		int w2hospiatlLevel;
 		cout << "输入医院等级：" << endl;
-		cin >> f2level;
+		cin >> w2hospiatlLevel;
 
-		string f2hospArea;
+		string w2hosptialArea;
 		cout << "输入医院所属地区：" << endl;
-		cin >> f2hospArea;
+		cin >> w2hosptialArea;
 
 		cout << "信息录入中..." << endl;
-		ofs << f2Id << " " << f2Name << " " << f2Pwd << " " << f2hospName << " " << f2level << " " << f2hospArea << endl;
+		ofs << w2hospitalHid << " " << w2hospitalUsrName << " " << w2hospitalPasswd << " " << w2hospitalId << " " << w2hospitalName << " " << w2hospiatlLevel << " " << w2hosptialArea << endl;
 		cout << "录入成功！" << endl;
 		
 		system("pause");
@@ -157,57 +181,18 @@ void Admin::addHospital() {
 	}
 
 	system("cls");
-	this->initVector();
 	ofs.close();
 }
 
-void Admin::addBill() {
-	ofstream ofs;
-	ofs.open(BILL_FILE, ios::out | ios::app);
-
-	int addNum;
-	cout << "添加账单数目：";
-	cin >> addNum;
-	for (int i = 0; i < addNum; i++) {
-		cout << "添加第 【 " << i + 1 << " 】个账单" << endl;
-
-		string f2belong;
-		cout << "输入应支付人医保卡号：" << endl;
-		cin >> f2belong;
-
-		string f2about;
-		cout << "输入详细信息：" << endl;
-		cin >> f2about;
-
-		string f2hospital;
-		cout << "输入相关医院：" << endl;
-		cin >> f2hospital;
-
-		double f2value;
-		cout << "输入账单金额：" << endl;
-		cin >> f2value;
-
-		cout << "信息录入中..." << endl;
-		ofs << f2belong << " " << f2about << " " << f2hospital << " " << f2value << endl;
-		cout << "录入成功！" << endl;
-
-		system("pause");
-	} 
-
-	system("cls");
-	ofs.close();
-}
-
-void printUser(User& u);
-void printHospital(Hospital& h);
-
+// 显示所有用户信息
 void Admin::showUser() {
-	cout << "所有投保人信息如下：" << endl;
+	cout << "所有用户信息如下：" << endl;
 	for_each(user.begin(), user.end(), printUser);
 	system("pause");
 	system("cls");
 }
 
+// 显示所有定点医院信息
 void Admin::showHospital() {
 	cout << "所有定点医院信息如下：" << endl;
 	for_each(hospital.begin(), hospital.end(), printHospital);
@@ -215,38 +200,164 @@ void Admin::showHospital() {
 	system("cls");
 }
 
-void Admin::showBill() {
-}
-
+// 搜索用户
 void Admin::searchUser() {
+	int choice;
+	
+	usrList.clear();
+	cout << "选择搜索依据：" << endl
+		<< "  1.医保卡号\n"
+		<< "  2.姓名\n"
+		<< "  3.证件号" << endl
+		<< "请输入：";
+	cin >> choice;
+	if (choice == 1) {
+		string id;
+		cout << "输入医保卡号：";
+		cin >> id;
+		for (vector<User>::iterator it = user.begin(); it != user.end(); it++) {
+			if (id == it->usrMedicalCardNum)
+				usrList.push_back(*it);
+		}
+	}
+	else if (choice == 2) {
+		string id;
+		cout << "输入姓名：";
+		cin >> id;
+		for (vector<User>::iterator it = user.begin(); it != user.end(); it++) {
+			if (id == it->usrName)
+				usrList.push_back(*it);
+		}
+	}
+	else if (choice == 3) {
+		string id;
+		cout << "输入证件号：";
+		cin >> id;
+		for (vector<User>::iterator it = user.begin(); it != user.end(); it++) {
+			if (id == it->usrIdCardNum)
+				usrList.push_back(*it);
+		}
+	}
+	else {
+		cout << "输入错误！" << endl;
+		system("pause");
+		system("cls");
+		return;
+	}
 
+	cout << "搜索结果如下：" << endl;
+	if (usrList.size() != 0) {
+		for_each(usrList.begin(), usrList.end(), printUser);
+	}
+	else {
+		cout << "空" << endl;
+	}
+
+	system("pause");
+	system("cls");
 }
 
+// 搜索定点医院
 void Admin::searchHospital() {
+	int choice;
+	
+	hospitalList.clear();
+	cout << "选择搜索依据：" << endl
+		<< "  1.机构号\n"
+		<< "  2.名称" << endl
+		<< "请输入：";
+	cin >> choice;
+	if (choice == 1) {
+		string id;
+		cout << "输入机构号：";
+		cin >> id;
+		for (vector<Hospital>::iterator it = hospital.begin(); it != hospital.end(); it++) {
+			if (id == it->hospitalId)
+				hospitalList.push_back(*it);
+		}
+	}
+	else if (choice == 2) {
+		string id;
+		cout << "输入医院名：";
+		cin >> id;
+		for (vector<Hospital>::iterator it = hospital.begin(); it != hospital.end(); it++) {
+			if (id == it->hospitalName)
+				hospitalList.push_back(*it);
+		}
+	}
+	else {
+		cout << "输入错误！" << endl;
+		system("pause");
+		system("cls");
+		return;
+	}
 
+	cout << "搜索结果如下：" << endl;
+	if (hospitalList.size() != 0) {
+		for_each(hospitalList.begin(), hospitalList.end(), printHospital);
+	}
+	else {
+		cout << "空" << endl;
+	}
+
+	system("pause");
+	system("cls");
 }
 
-void Admin::searchBill() {
-
-}
-
+// 删除用户信息
 void Admin::deleteUser() {
+	this->searchUser();
 
+
+	this->initVector();
 }
 
+// 删除医院信息
 void Admin::deleteHospital() {
+	this->searchHospital();
 
+
+	this->initVector();
 }
 
-void Admin::deleteBill() {
-
-}
-
+// 清空所有数据
 void Admin::deleteAll() {
+	cout << "警告！正在准备清空所有数据！此操作不可逆！" << endl;
 
+	string choice;
+	cout << "是否继续操作？请输入‘是’" << endl;
+	cin >> choice;
+
+	if (choice == "是") {
+		ofstream ofs;
+		ofs.open(USER_FILE, ios::trunc);
+		ofs.close();
+
+		ofs.open(HOSPITAL_FILE, ios::trunc);
+		ofs.close();
+
+		ofs.open(BILL_FILE, ios::trunc);
+		ofs.close();
+
+		cout << "清除成功！" << endl;
+		
+		this->initVector();
+		system("pause");
+		system("cls");
+	}
+	else {
+		cout << "操作已取消！" << endl;
+		system("pause");
+		system("cls");
+		return;
+	}
 }
 
+// 初始化向量数组
 void Admin::initVector() {
+	user.clear();
+	hospital.clear();
+
 	ifstream ifs;
 	ifs.open(USER_FILE, ios::in);
 
@@ -255,30 +366,28 @@ void Admin::initVector() {
 		return;
 	}
 
-	user.clear();
-	hospital.clear();
-
 	User u;
-	while (ifs >> u.userId && ifs >> u.userName && ifs >> u.userAge && ifs >> u.idCardNum && ifs >> u.userNation && ifs >> u.idClass && ifs >> u.inHsopital && ifs >> u.cardBanlance && ifs >> u.MedialCareBelongsArea) {
+	while (ifs >> u.usrUid && ifs >> u.username && ifs >> u.passwd && ifs >> u.usrMedicalCardNum && ifs >> u.usrName && ifs >> u.usrAge && ifs >> u.usrSex && ifs >> u.usrIdCardNum && ifs >> u.usrNation && ifs >> u.usrIdClass && ifs >> u.usrInHospital && ifs >> u.usrCardBanlance && ifs >> u.usrCareArea) {
 		user.push_back(u);
 	}
-	cout << "当前投保人数为：" << user.size() << " 人" << endl;
+	cout << "当前用户数为：" << user.size() << " 人" << endl;
 	ifs.close();
 
 	ifs.open(HOSPITAL_FILE, ios::in);
 
 	Hospital h;
-	while (ifs >> h.hospitalId && ifs >> h.hospitalName && ifs >> h.hospitalLevel && ifs >> h.hospitalArea) {
+	while (ifs >> h.hospitalHid && ifs >> h.username && ifs >> h.passwd && ifs >> h.hospitalId && ifs >> h.hospitalName && ifs >> h.hospitalLevel && ifs >> h.hospitalArea) {
 		hospital.push_back(h);
 	}
 	cout << "当前定点医院数量为：" << hospital.size()  << " 所"<< endl;
 	ifs.close();
 }
 
+// 查重去重函数
 bool Admin::checkRepeat(string id, int type) {
 	if (type == 1) {
 		for (vector<User>::iterator it = user.begin(); it != user.end(); it++) {
-			if (id == it->userId)
+			if (id == it->usrMedicalCardNum)
 				return true;
 		}
 	}
@@ -289,25 +398,4 @@ bool Admin::checkRepeat(string id, int type) {
 		}
 	}
 	return false;
-}
-
-
-void printUser(User &u) {
-	cout << "医保卡号:" << setw(20) << u.userId << resetiosflags
-		<< "姓名：" << setw(10) << u.userName << resetiosflags
-		<< "年龄：" << setw(4) << u.userAge << resetiosflags
-		// << "性别：" << setw(2) << u.userAge << resetiosflags
-		<< "证件号码：" << setw(20) << u.idCardNum << resetiosflags
-		<< "民族：" << setw(5) << u.userNation << resetiosflags
-		<< "类别：" << setw(5) << u.idClass << resetiosflags
-		<< "在院情况：" << setw(2) << u.inHsopital << resetiosflags
-		<< "余额：" << setw(10) << setiosflags(ios::fixed) << setprecision(2) << u.cardBanlance << resetiosflags
-		<< "医保所属区域：" << setw(10) << u.MedialCareBelongsArea << resetiosflags << endl;
-}
-
-void printHospital(Hospital& h) {
-	cout << "定点医院机构号：" << setw(10) << h.hospitalId << resetiosflags
-		<< "医院名：" << setw(25) << h.hospitalName << resetiosflags
-		<< "医院等级：" << setw(2) << h.hospitalLevel << resetiosflags
-		<< "医院所属区域：" << setw(10) << h.hospitalArea << resetiosflags << endl;
 }

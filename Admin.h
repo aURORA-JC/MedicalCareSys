@@ -13,21 +13,19 @@ public:
 	virtual void openMenu();
 	void addUser();
 	void addHospital();
-	void addBill();
 	void showUser();
 	void showHospital();
-	void showBill();
 	void searchUser();
 	void searchHospital();
-	void searchBill();
 	void deleteUser();
 	void deleteHospital();
-	void deleteBill();
 	void deleteAll();
 	void initVector();
 	bool checkRepeat(string, int);
 	vector<User> user;
 	vector<Hospital> hospital;
+	vector<User> usrList;
+	vector<Hospital> hospitalList;
 private:
 	string adminId;
 	string adminName;

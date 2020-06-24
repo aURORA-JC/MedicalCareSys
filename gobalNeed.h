@@ -1,3 +1,6 @@
+// gobalNeed.h - MedicalSys for class CPP Programming
+// version 0.0.3 - dev at Wan 2020.06.24 - produce by aurorajc
+
 #pragma once
 // 管理员信息文件
 #define ADMIN_FILE      "Admins.dat"

@@ -1,3 +1,6 @@
+// Admin.cpp - MedicalSys for class CPP Programming
+// version 0.0.3 - dev at Wan 2020.06.24 - produce by aurorajc
+
 #include "Admin.h"
 
 // 显示格式设定
@@ -216,8 +219,9 @@ void Admin::searchUser() {
 		cout << "输入医保卡号：";
 		cin >> id;
 		for (vector<User>::iterator it = user.begin(); it != user.end(); it++) {
-			if (id == it->usrMedicalCardNum)
+			if (id == it->usrMedicalCardNum) {
 				usrList.push_back(*it);
+			}
 		}
 	}
 	else if (choice == 2) {
@@ -246,7 +250,7 @@ void Admin::searchUser() {
 	}
 
 	cout << "搜索结果如下：" << endl;
-	if (usrList.size() != 0) {
+	if (!usrList.empty()) {
 		for_each(usrList.begin(), usrList.end(), printUser);
 	}
 	else {
@@ -293,7 +297,7 @@ void Admin::searchHospital() {
 	}
 
 	cout << "搜索结果如下：" << endl;
-	if (hospitalList.size() != 0) {
+	if (!hospitalList.empty()) {
 		for_each(hospitalList.begin(), hospitalList.end(), printHospital);
 	}
 	else {

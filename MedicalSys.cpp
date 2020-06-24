@@ -41,7 +41,7 @@ int main() {
 		cout << endl << "欢迎使用【试制型医疗保险管理系统】!" << endl << "选择您要进行的操作：" << endl
 			<< "\t\t ---------------------------- \n"
 			<< "\t\t|                            |\n"
-			<< "\t\t|         1.登    陆         |\n"
+			<< "\t\t|         1.登    录         |\n"
 			<< "\t\t|                            |\n"
 			<< "\t\t|         2.退    出         |\n"
 			<< "\t\t|                            |\n"
@@ -85,21 +85,9 @@ int main() {
 					loginSys(ADMIN_FILE, 3);
 					break;
 				default:
-					cout << "您的输入有误，请重新输入!";
-					
-					// 3次尝试机会后退出
-					tryTime--;
-					if (tryTime == 0) {
-						cout << endl << "感谢使用本系统，祝您生活愉快！" << endl;
-						system("pause");
-						return 0;
-					}
-					else {
-						cout << "（剩余尝试次数：" << tryTime << " 次）" << endl;
-					}
+					cout << "您的输入有误，请重新输入!" << endl;
 					system("pause");
 					system("cls");
-					break;
 				}
 
 			}
@@ -109,21 +97,9 @@ int main() {
 			system("pause");
 			return 0;
 		default:
-			cout << "您的输入有误，请重新输入!";
-
-			// 3次尝试机会后退出
-			tryTime--;
-			if (tryTime == 0) {
-				cout << endl << "感谢使用本系统，祝您生活愉快！" << endl;
-				system("pause");
-				return 0;
-			}
-			else {
-				cout << "（剩余尝试次数：" << tryTime << " 次）" << endl;
-			}
+			cout << "您的输入有误，请重新输入!" << endl;
 			system("pause");
 			system("cls");
-			break;
 		}
 	}
 
@@ -365,10 +341,6 @@ void usrConsole(Identity*& Console) {
 			Manage->showBill();
 		}
 		else if (select == 4) {
-			cout << "搜索账单" << endl;
-			Manage->searchBill();
-		}
-		else if (select == 5) {
 			cout << "支付账单" << endl;
 			Manage->payBill();
 		}

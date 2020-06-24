@@ -1,3 +1,6 @@
+// Admin.h - MedicalSys for class CPP Programming
+// version 0.0.3 - dev at Wan 2020.06.24 - produce by aurorajc
+
 #pragma once
 #include <iostream>
 #include <vector>
@@ -5,6 +8,7 @@ using namespace std;
 #include "Identity.h"
 #include "User.h"
 #include "Hospital.h"
+#include "Bill.h"
 
 class Admin :public Identity {
 public:

@@ -1,9 +1,11 @@
 #include "Bill.h"
 
+// 构造函数
 Bill::Bill() {
 
 }
 
+// 含参构造函数
 Bill::Bill(long long billBid, string billBelongs, string billInfo, string billSource, double billValue, bool billStatus) {
 	this->billBid = billBid;
 	this->billBelongs = billBelongs;
@@ -11,9 +13,9 @@ Bill::Bill(long long billBid, string billBelongs, string billInfo, string billSo
 	this->billSource = billSource;
 	this->billValue = billValue;
 	this->billStatus = billStatus;
-
 }
 
+// 初始化
 void Bill::initVector() {
 	billData.clear();
 
@@ -32,6 +34,7 @@ void Bill::initVector() {
 	ifs.close();
 }
 
+// 
 void Bill::updateBill() {
 	if (this->billData.size() == 0) {
 		return;
@@ -39,10 +42,10 @@ void Bill::updateBill() {
 
 	ofstream ofs;
 	ofs.open(BILL_FILE, ios::out | ios::trunc);
-	for (int i = 0; i < billData.size(); i++) {
-		//ofs << this->billBid << " " << this->billBelongs << " " 
-		//	<< this->billInfo << " " << this->billSource<< " " 
-		//	<< this->billValue << " " << this->billStatus << endl;
+	for (unsigned int i = 0; i < billData.size(); i++) {
+		ofs << this->billData[i].billBid << " " << this->billData[i].billBelongs << " "
+			<< this->billData[i].billInfo << " " << this->billData[i].billSource<< " "
+			<< this->billData[i].billValue << " " << this->billData[i].billStatus << endl;
 	}
 	ofs.close();
 }

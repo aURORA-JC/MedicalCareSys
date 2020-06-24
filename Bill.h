@@ -1,7 +1,9 @@
+// Bill.h - MedicalSys for class CPP Programming
+// version 0.0.3 - dev at Wan 2020.06.24 - produce by aurorajc
+
 #pragma once
 #include <iostream>
 #include <fstream>
-#include <map>
 #include <vector>
 #include <algorithm>
 using namespace std;

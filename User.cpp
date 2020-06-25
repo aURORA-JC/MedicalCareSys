@@ -1,20 +1,14 @@
 // User.h - MedicalSys for class CPP Programming
-// version 0.0.3 - dev at Wan 2020.06.24 - produce by aurorajc
+// version 0.1.1 rc1 - dev at 2020.06.25 - produce by aurorajc
 
 #include "User.h"
 
-using namespace std;
-
+// 显示格式设定函数
 void printUser(User& u);
 void printBill(Bill& b);
 
-// 构造函数
-User::User() {
-
-}
-
 // 含参构造函数
-User::User(long long usrUid, string usrMedicalCardNum, string usrName, int usrAge, string usrSex, string usrIdCardNum, string usrNation, string usrIdClass, bool usrInHospital, double usrCardBalance, string usrCareArea) {
+User::User(long long usrUid, string usrMedicalCardNum, string usrName, int usrAge, string usrSex, string usrIdCardNum, string usrNation, string usrIdClass, string usrInHospital, double usrCardBalance, string usrCareArea) {
 	this->usrMedicalCardNum = usrMedicalCardNum;
 	this->usrUid = usrUid;
 	this->usrName = usrName;
@@ -28,7 +22,7 @@ User::User(long long usrUid, string usrMedicalCardNum, string usrName, int usrAg
 	this->usrCareArea = usrCareArea;
 }
 
-// 用户菜单
+// 用户菜单函数
 void User::openMenu() {
 	cout << "欢迎回来，用户：" << this->usrName << endl;
 		cout << " --------------------------------------------------------\n"
@@ -41,7 +35,7 @@ void User::openMenu() {
 			<< "请选择：";
 }
 
-// 显示信息
+// 显示信息函数
 void User::showInfo() {
 	User u;
 	vector<User> list;
@@ -60,7 +54,7 @@ void User::showInfo() {
 	system("cls");
 }
 
-// 充值
+// 充值函数
 void User::addCredit() {
 	User u;
 	vector<User> list;
@@ -96,7 +90,7 @@ void User::addCredit() {
 
 }
 
-// 显示账单
+// 显示账单函数
 void User::showBill() {
 	Bill a;
 	vector<Bill> list;
@@ -120,19 +114,21 @@ void User::showBill() {
 	system("cls");
 }
 
-// 支付账单
+// 支付账单函数
 void User::payBill() {
 	cout << "当前可支付账单如下：" << endl;
 	Bill a;
 	User u;
 	vector<Bill> list;
 	list.clear();
+	rights.clear();
 	a.initVector();
 	u.initVector();
 
 	for (vector<Bill>::iterator it = a.billData.begin(); it != a.billData.end(); it++) {
-		if (it->billBelongs == this->usrMedicalCardNum && it->billStatus == 1) {
+		if (it->billBelongs == this->usrMedicalCardNum && it->billStatus == "未支付") {
 			list.push_back(*it);
+			rights.push_back(it->billBid);
 		}
 	}
 
@@ -146,8 +142,16 @@ void User::payBill() {
 		for_each(list.begin(), list.end(), printBill);
 
 		long long id;
-		cout << endl << "输入目标账单Bid:";
+		cout << endl << "输入目标账单的Bid:";
 		cin >> id;
+
+		if (!checkRights(id)) {
+			cout << "当前BID不可访问！" << endl;
+			system("pause");
+			system("cls");
+			return;
+		}
+
 		cout << "即将支付Bid为" << id << " 的账单。";
 		system("pause");
 
@@ -156,7 +160,7 @@ void User::payBill() {
 
 		for (vector<Bill>::iterator it = a.billData.begin(); it != a.billData.end(); it++) {
 			if (id == it->billBid) {
-				it->billStatus = 0;
+				it->billStatus = "已支付";
 				value = it->billValue;
 			}
 		}
@@ -179,7 +183,7 @@ void User::payBill() {
 	system("cls");
 }
 
-// 初始化
+// 容器初始化函数
 void User::initVector() {
 	usrData.clear();
 
@@ -198,7 +202,7 @@ void User::initVector() {
 	ifs.close();
 }
 
-// 更新
+// 更新数据函数
 void User::updateUser(){
 	if (this->usrData.size() == 0) {
 		return;
@@ -208,12 +212,23 @@ void User::updateUser(){
 	ofs.open(USER_FILE, ios::out | ios::trunc);
 	for (unsigned int i = 0; i < usrData.size(); i++) {
 		ofs << this->usrData[i].usrUid << " " << this->usrData[i].username << " "
-			<< this->usrData[i].passwd << " " << this->usrData[i].usrMedicalCardNum << " " << this->usrData[i].usrName << " "
-			<< this->usrData[i].usrAge << " " << this->usrData[i].usrSex << " "
-			<< this->usrData[i].usrIdCardNum << " " << this->usrData[i].usrNation << " "
-			<< this->usrData[i].usrIdClass << " " << this->usrData[i].usrInHospital << " "
-			<< this->usrData[i].usrCardBanlance << " " << this->usrData[i].usrCareArea << endl;
+			<< this->usrData[i].passwd << " " << this->usrData[i].usrMedicalCardNum << " "
+			<< this->usrData[i].usrName << " " << this->usrData[i].usrAge << " "
+			<< this->usrData[i].usrSex << " " << this->usrData[i].usrIdCardNum << " "
+			<< this->usrData[i].usrNation << " " << this->usrData[i].usrIdClass << " " 
+			<< this->usrData[i].usrInHospital << " " << this->usrData[i].usrCardBanlance << " "
+			<< this->usrData[i].usrCareArea << endl;
 	}
 	ofs.close();
 }
 
+// 权限检查函数
+bool User::checkRights(long long id){
+	bool right;
+	for (vector<long long>::iterator it = rights.begin(); it != rights.end(); it++) {
+		if (id == *it) {
+			right = true;
+		}
+	}
+	return false;
+}

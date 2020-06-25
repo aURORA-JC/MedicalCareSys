@@ -1,12 +1,10 @@
+// Bill.cpp - MedicalSys for class CPP Programming
+// version 0.1.1 rc1 - dev at 2020.06.25 - produce by aurorajc
+
 #include "Bill.h"
 
-// 构造函数
-Bill::Bill() {
-
-}
-
 // 含参构造函数
-Bill::Bill(long long billBid, string billBelongs, string billInfo, string billSource, double billValue, bool billStatus) {
+Bill::Bill(long long billBid, string billBelongs, string billInfo, string billSource, double billValue, string billStatus) {
 	this->billBid = billBid;
 	this->billBelongs = billBelongs;
 	this->billInfo = billInfo;
@@ -15,7 +13,7 @@ Bill::Bill(long long billBid, string billBelongs, string billInfo, string billSo
 	this->billStatus = billStatus;
 }
 
-// 初始化
+// 容器初始化函数
 void Bill::initVector() {
 	billData.clear();
 
@@ -34,9 +32,9 @@ void Bill::initVector() {
 	ifs.close();
 }
 
-// 
+// 更新数据函数
 void Bill::updateBill() {
-	if (this->billData.size() == 0) {
+	if (this->billData.empty()) {
 		return;
 	}
 
@@ -49,6 +47,3 @@ void Bill::updateBill() {
 	}
 	ofs.close();
 }
-
-
-

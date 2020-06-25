@@ -1,5 +1,5 @@
 // MedicalSys.cpp - MedicalSys for class CPP Programming
-// version 0.0.2 - dev at Wan 2020.06.23 - produce by aurorajc
+// version 0.1.1 rc1 - dev at 2020.06.25 - produce by aurorajc
 
 #include <iostream>
 #include <string>
@@ -18,7 +18,7 @@ void adminConsole(Identity*&);
 void hospitalConsole(Identity*&);
 void usrConsole(Identity*&);
 
-// 显示格式设定
+// 显示格式设定函数
 void printUser(User& u);
 void printHospital(Hospital& h);
 void printBill(Bill& b);
@@ -30,9 +30,6 @@ int main() {
 
 	// 接收用户选择
 	int select = 0;
-
-	// 输入错误计数
-	int tryTime = 4;
 
 	// 登陆页面操作
 	while (true) {
@@ -52,8 +49,7 @@ int main() {
 		cin >> select;
 
 		// 判断选择
-		switch (select) {
-		case 1:
+		if (select == 1) {
 			while (true) {
 				// 刷新控制台
 				system("cls");
@@ -70,11 +66,13 @@ int main() {
 					<< "\t\t ---------------------------- \n"
 					<< "请选择：";
 
+				int select2 = 0;
+
 				// 输入选择
-				cin >> select;
+				cin >> select2;
 
 				// 判断选择
-				switch (select) {
+				switch (select2) {
 				case 1:
 					loginSys(USER_FILE, 1);
 					break;
@@ -88,15 +86,17 @@ int main() {
 					cout << "您的输入有误，请重新输入!" << endl;
 					system("pause");
 					system("cls");
+					break;
 				}
 
 			}
-			break;
-		case 2:
+		}
+		else if (select == 2) {
 			cout << "感谢使用本系统，祝您生活愉快！" << endl;
 			system("pause");
 			return 0;
-		default:
+		}
+		else{
 			cout << "您的输入有误，请重新输入!" << endl;
 			system("pause");
 			system("cls");
@@ -156,7 +156,7 @@ void loginSys(string dataName, int idType) {
 				string f2usrIdCardNum;
 				string f2usrNation;
 				string f2usrIdClass;
-				bool f2usrInHospital;
+				string f2usrInHospital;
 				double f2usrCardBalance;
 				string f2usrCareArea;
 				ifs >> f2usrMedicalCardNum;
@@ -249,30 +249,54 @@ void adminConsole(Identity* &Console) {
 			Manage->addHospital();
 		}
 		else if (select == 3) {
+			cout << "添加账单" << endl;
+			Manage->addBill();
+		}
+		else if (select == 4) {
 			cout << "列出用户" << endl;
 			Manage->showUser();
 		}
-		else if (select == 4) {
+		else if (select == 5) {
 			cout << "列出定点医院" << endl;
 			Manage->showHospital();
 		}
-		else if (select == 5) {
+		else if (select == 6) {
+			cout << "列出账单" << endl;
+			Manage->showBill();
+		}
+		else if (select == 7) {
 			cout << "搜索用户" << endl;
 			Manage->searchUser();
 		}
-		else if (select == 6) {
+		else if (select == 8) {
 			cout << "搜索定点医院" << endl;
 			Manage->searchHospital();
 		}
-		else if (select == 7) {
+		else if (select == 9) {
+			cout << "搜索账单" << endl;
+			Manage->searchBill();
+		}
+		else if (select == 10) {
+			cout << "编辑用户" << endl;
+			Manage->editUser();
+		}
+		else if (select == 11) {
+			cout << "编辑定点医院" << endl;
+			Manage->editHospital();
+		}
+		else if (select == 12) {
 			cout << "删除用户" << endl;
 			Manage->deleteUser();
 		}
-		else if (select == 8) {
+		else if (select == 13) {
 			cout << "删除定点医院" << endl;
 			Manage->deleteHospital();
 		}
-		else if (select == 9) {
+		else if (select == 14) {
+			cout << "删除账单" << endl;
+			Manage->deleteBill();
+		}
+		else if (select == 15) {
 			cout << "清除所有数据" << endl;
 			Manage->deleteAll();
 		}
@@ -305,6 +329,10 @@ void hospitalConsole(Identity*& Console) {
 			Manage->showBill();
 		}
 		else if (select == 3) {
+			cout << "修改账单" << endl;
+			Manage->editBill();
+		}
+		else if (select == 4) {
 			cout << "删除账单" << endl;
 			Manage->deleteBill();
 		}
@@ -354,16 +382,16 @@ void usrConsole(Identity*& Console) {
 	}
 }
 
-// 用户信息样式
+// 用户信息样式函数
 void printUser(User& u) {
 	cout << setiosflags(ios::left) << setfill(' ')
 		<< "UID：" << setw(5) << u.usrUid
 		<< "医保卡号:" << setw(20) << u.usrMedicalCardNum
-		<< "姓名：" << setw(10) << u.usrName
+		<< "姓名：" << setw(17) << u.usrName
 		<< "年龄：" << setw(5) << u.usrAge
 		<< "性别：" << setw(5) << u.usrSex
 		<< "证件号码：" << setw(20) << u.usrIdCardNum
-		<< "民族：" << setw(7) << u.usrNation
+		<< "民族：" << setw(9) << u.usrNation
 		<< "类别：" << setw(10) << u.usrIdClass
 		<< "在院情况：" << setw(5) << u.usrInHospital
 		<< "余额：￥ " << setw(14) << setiosflags(ios::fixed) << setprecision(2) << u.usrCardBanlance
@@ -371,7 +399,7 @@ void printUser(User& u) {
 		<< resetiosflags(ios::left | ios::fixed) << endl;
 }
 
-// 定点医院信息样式
+// 定点医院信息样式函数
 void printHospital(Hospital& h) {
 	cout << setiosflags(ios::left) << setfill(' ')
 		<< "HID：" << setw(5) << h.hospitalHid
@@ -382,7 +410,7 @@ void printHospital(Hospital& h) {
 		<< resetiosflags(ios::left | ios::fixed) << endl;
 }
 
-// 账单信息样式
+// 账单信息样式函数
 void printBill(Bill& b) {
 	cout << setiosflags(ios::left) << setfill(' ')
 		<< "BID：" << setw(5) << b.billBid
@@ -390,6 +418,6 @@ void printBill(Bill& b) {
 		<< "账单详情：" << setw(30) << b.billInfo
 		<< "出具医院机构号：" << setw(15) << b.billSource
 		<< "账单金额：￥" << setw(10) << setiosflags(ios::fixed) << setprecision(2) << b.billValue
-		<< "账单状态：" << setw(2) << b.billStatus
+		<< "账单状态：" << setw(5) << b.billStatus
 		<< resetiosflags(ios::left | ios::fixed) << endl;
 }

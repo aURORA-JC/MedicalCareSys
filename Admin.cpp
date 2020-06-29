@@ -1,5 +1,5 @@
 // Admin.cpp - MedicalSys for class CPP Programming
-// version 0.1.1 rc1 - dev at 2020.06.25 - produce by aurorajc
+// version 0.1.2 fixed - dev at 2020.06.25 - produce by aurorajc
 
 #include "Admin.h"
 
@@ -289,7 +289,7 @@ void Admin::showBill() {
 // 搜索用户函数函数
 void Admin::searchUser() {
 	usrList.clear();
-	int choice;
+	string choice;
 	
 	usrList.clear();
 	cout << "选择搜索依据：" << endl
@@ -298,7 +298,7 @@ void Admin::searchUser() {
 		<< "  3.证件号" << endl
 		<< "请输入：";
 	cin >> choice;
-	if (choice == 1) {
+	if (choice == "1") {
 		string id;
 		cout << "输入医保卡号：";
 		cin >> id;
@@ -308,7 +308,7 @@ void Admin::searchUser() {
 			}
 		}
 	}
-	else if (choice == 2) {
+	else if (choice == "2") {
 		string id;
 		cout << "输入姓名：";
 		cin >> id;
@@ -318,7 +318,7 @@ void Admin::searchUser() {
 			}
 		}
 	}
-	else if (choice == 3) {
+	else if (choice == "3") {
 		string id;
 		cout << "输入证件号：";
 		cin >> id;
@@ -350,7 +350,7 @@ void Admin::searchUser() {
 // 搜索定点医院函数
 void Admin::searchHospital() {
 	hospitalList.clear();
-	int choice;
+	string choice;
 	
 	hospitalList.clear();
 	cout << "选择搜索依据：" << endl
@@ -358,7 +358,7 @@ void Admin::searchHospital() {
 		<< "  2.名称" << endl
 		<< "请输入：";
 	cin >> choice;
-	if (choice == 1) {
+	if (choice == "1") {
 		string id;
 		cout << "输入机构号：";
 		cin >> id;
@@ -368,7 +368,7 @@ void Admin::searchHospital() {
 			}
 		}
 	}
-	else if (choice == 2) {
+	else if (choice == "2") {
 		string id;
 		cout << "输入医院名：";
 		cin >> id;
@@ -400,7 +400,7 @@ void Admin::searchHospital() {
 // 搜索账单函数
 void Admin::searchBill() {
 	billList.clear();
-	int choice;
+	string choice;
 
 	hospitalList.clear();
 	cout << "选择搜索依据：" << endl
@@ -409,7 +409,7 @@ void Admin::searchBill() {
 		<< "请输入：";
 	cin >> choice;
 
-	if (choice == 1) {
+	if (choice == "1") {
 		string id;
 		cout << "输入医保卡号：";
 		cin >> id;
@@ -419,7 +419,7 @@ void Admin::searchBill() {
 			}
 		}
 	}
-	else if (choice == 2) {
+	else if (choice == "2") {
 		string id;
 		cout << "输入机构号：";
 		cin >> id;
@@ -456,7 +456,7 @@ void Admin::editUser() {
 	cout << endl << "输入修改用户的Uid:";
 	cin >> id;
 
-	int choice;
+	string choice;
 	cout << "选择修改内容：" << endl
 		<< "  1.姓名\n"
 		<< "  2.年龄\n"
@@ -465,7 +465,7 @@ void Admin::editUser() {
 		<< "  5.所属地区\n" << endl;
 	cin >> choice;
 
-	if (choice == 1) {
+	if (choice == "1") {
 		cout << "输入姓名：" << endl;
 		for (vector<User>::iterator it = user.begin(); it != user.end(); it++) {
 			if (id == it->usrUid) {
@@ -473,7 +473,7 @@ void Admin::editUser() {
 			}
 		}
 	}
-	else if (choice == 2) {
+	else if (choice == "2") {
 		cout << "输入年龄：" << endl;
 		for (vector<User>::iterator it = user.begin(); it != user.end(); it++) {
 			if (id == it->usrUid) {
@@ -481,7 +481,7 @@ void Admin::editUser() {
 			}
 		}
 	}
-	else if (choice == 3) {
+	else if (choice == "3") {
 		cout << "输入类别：" << endl;
 		for (vector<User>::iterator it = user.begin(); it != user.end(); it++) {
 			if (id == it->usrUid) {
@@ -489,7 +489,7 @@ void Admin::editUser() {
 			}
 		}
 	}
-	else if (choice == 4) {
+	else if (choice == "4") {
 		cout << "输入余额：" << endl;
 		for (vector<User>::iterator it = user.begin(); it != user.end(); it++) {
 			if (id == it->usrUid) {
@@ -497,7 +497,7 @@ void Admin::editUser() {
 			}
 		}
 	}
-	else if (choice == 5) {
+	else if (choice == "5") {
 		cout << "输入所属地区：" << endl;
 		for (vector<User>::iterator it = user.begin(); it != user.end(); it++) {
 			if (id == it->usrUid) {
@@ -527,14 +527,14 @@ void Admin::editHospital() {
 	cout << endl << "输入修改医院的Hid:";
 	cin >> id;
 
-	int choice;
+	string choice;
 	cout << "选择修改内容：" << endl
 		<< "  1.机构号\n"
 		<< "  2.医院名\n"
 		<< "  3.所属区域" << endl;
 	cin >> choice;
 
-	if (choice == 1) {
+	if (choice == "1") {
 		cout << "输入机构号：" << endl;
 		for (vector<Hospital>::iterator it = hospital.begin(); it != hospital.end(); it++) {
 			if (id == it->hospitalHid) {
@@ -542,7 +542,7 @@ void Admin::editHospital() {
 			}
 		}
 	}
-	else if (choice == 2) {
+	else if (choice == "2") {
 		cout << "输入医院名：" << endl;
 		for (vector<Hospital>::iterator it = hospital.begin(); it != hospital.end(); it++) {
 			if (id == it->hospitalHid) {
@@ -550,7 +550,7 @@ void Admin::editHospital() {
 			}
 		}
 	}
-	else if (choice == 3) {
+	else if (choice == "3") {
 		cout << "输入所属地区：" << endl;
 		for (vector<Hospital>::iterator it = hospital.begin(); it != hospital.end(); it++) {
 			if (id == it->hospitalHid) {

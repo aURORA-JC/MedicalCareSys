@@ -1,5 +1,5 @@
 // Hospital.cpp - MedicalSys for class CPP Programming
-// version 0.1.1 rc1 - dev at 2020.06.25 - produce by aurorajc
+// version 0.1.2 fixed - dev at 2020.06.25 - produce by aurorajc
 
 #include "Hospital.h"
 
@@ -40,9 +40,11 @@ void Hospital::addBill() {
 	for (int i = 0; i < addNum; i++) {
 		cout << "添加第 【 " << i + 1 << " 】份账单" << endl;
 
-		long long w2billBid;
+		string ew2billBid;
 		cout << "设置账单编号：" << endl;
-		cin >> w2billBid;
+		cin >> ew2billBid;
+
+		long long w2billBid = stoll(ew2billBid);
 
 		if (checkRepeat(w2billBid)) {
 			cout << "账单编号已存在！" << endl;
@@ -131,14 +133,14 @@ void Hospital::editBill() {
 			return;
 		}
 
-		int choice;
+		string choice;
 		cout << "选择修改内容：" << endl
 			<< "  1.详情\n"
 			<< "  2.金额\n"
 			<< "  3.支付状态" << endl;
 		cin >> choice;
 
-		if (choice == 1) {
+		if (choice == "1") {
 			cout << "输入详情：" << endl;
 			for (vector<Bill>::iterator it = a.billData.begin(); it != a.billData.end(); it++) {
 				if (id == it->billBid) {
@@ -146,7 +148,7 @@ void Hospital::editBill() {
 				}
 			}
 		}
-		else if (choice == 2) {
+		else if (choice == "2") {
 			cout << "输入金额：" << endl << "￥";
 			for (vector<Bill>::iterator it = a.billData.begin(); it != a.billData.end(); it++) {
 				if (id == it->billBid) {
@@ -154,7 +156,7 @@ void Hospital::editBill() {
 				}
 			}
 		}
-		else if (choice == 3) {
+		else if (choice == "3") {
 			cout << "设置支付状态（是/否）：" << endl;
 			for (vector<Bill>::iterator it = a.billData.begin(); it != a.billData.end(); it++) {
 				if (id == it->billBid) {

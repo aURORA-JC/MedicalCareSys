@@ -1,5 +1,5 @@
 // MedicalSys.cpp - MedicalSys for class CPP Programming
-// version 0.1.1 rc1 - dev at 2020.06.25 - produce by aurorajc
+// version 0.1.2 fixed - dev at 2020.06.25 - produce by aurorajc
 
 #include <iostream>
 #include <string>
@@ -29,7 +29,7 @@ int main() {
 	system("title 试制型医疗保险管理系统");
 
 	// 接收用户选择
-	int select = 0;
+	string select;
 
 	// 登陆页面操作
 	while (true) {
@@ -49,7 +49,7 @@ int main() {
 		cin >> select;
 
 		// 判断选择
-		if (select == 1) {
+		if (select == "1") {
 			while (true) {
 				// 刷新控制台
 				system("cls");
@@ -66,32 +66,30 @@ int main() {
 					<< "\t\t ---------------------------- \n"
 					<< "请选择：";
 
-				int select2 = 0;
+				string select2;
 
 				// 输入选择
 				cin >> select2;
 
 				// 判断选择
-				switch (select2) {
-				case 1:
+				if (select2 == "1") {
 					loginSys(USER_FILE, 1);
-					break;
-				case 2:
+				}
+				else if (select2 == "2") {
 					loginSys(HOSPITAL_FILE, 2);
-					break;
-				case 3:
+				}
+				else if (select2 == "3") {
 					loginSys(ADMIN_FILE, 3);
-					break;
-				default:
+				}
+				else {
 					cout << "您的输入有误，请重新输入!" << endl;
 					system("pause");
 					system("cls");
-					break;
 				}
 
 			}
 		}
-		else if (select == 2) {
+		else if (select == "2") {
 			cout << "感谢使用本系统，祝您生活愉快！" << endl;
 			system("pause");
 			return 0;
@@ -237,66 +235,66 @@ void adminConsole(Identity* &Console) {
 
 		Admin* Manage = (Admin*)Console;
 
-		int select = 0;
+		string select;
 		cin >> select;
 
-		if (select == 1) {
+		if (select == "1") {
 			cout << "添加用户" << endl;
 			Manage->addUser();
 		}
-		else if (select == 2) {
+		else if (select == "2") {
 			cout << "添加定点医院" << endl;
 			Manage->addHospital();
 		}
-		else if (select == 3) {
+		else if (select == "3") {
 			cout << "添加账单" << endl;
 			Manage->addBill();
 		}
-		else if (select == 4) {
+		else if (select == "4") {
 			cout << "列出用户" << endl;
 			Manage->showUser();
 		}
-		else if (select == 5) {
+		else if (select == "5") {
 			cout << "列出定点医院" << endl;
 			Manage->showHospital();
 		}
-		else if (select == 6) {
+		else if (select == "6") {
 			cout << "列出账单" << endl;
 			Manage->showBill();
 		}
-		else if (select == 7) {
+		else if (select == "7") {
 			cout << "搜索用户" << endl;
 			Manage->searchUser();
 		}
-		else if (select == 8) {
+		else if (select == "8") {
 			cout << "搜索定点医院" << endl;
 			Manage->searchHospital();
 		}
-		else if (select == 9) {
+		else if (select == "9") {
 			cout << "搜索账单" << endl;
 			Manage->searchBill();
 		}
-		else if (select == 10) {
+		else if (select == "10") {
 			cout << "编辑用户" << endl;
 			Manage->editUser();
 		}
-		else if (select == 11) {
+		else if (select == "11") {
 			cout << "编辑定点医院" << endl;
 			Manage->editHospital();
 		}
-		else if (select == 12) {
+		else if (select == "12") {
 			cout << "删除用户" << endl;
 			Manage->deleteUser();
 		}
-		else if (select == 13) {
+		else if (select == "13") {
 			cout << "删除定点医院" << endl;
 			Manage->deleteHospital();
 		}
-		else if (select == 14) {
+		else if (select == "14") {
 			cout << "删除账单" << endl;
 			Manage->deleteBill();
 		}
-		else if (select == 15) {
+		else if (select == "15") {
 			cout << "清除所有数据" << endl;
 			Manage->deleteAll();
 		}
@@ -317,22 +315,22 @@ void hospitalConsole(Identity*& Console) {
 
 		Hospital* Manage = (Hospital*)Console;
 
-		int select = 0;
+		string select;
 		cin >> select;
 
-		if (select == 1) {
+		if (select == "1") {
 			cout << "添加账单" << endl;
 			Manage->addBill();
 		}
-		else if (select == 2) {
+		else if (select == "2") {
 			cout << "列出账单" << endl;
 			Manage->showBill();
 		}
-		else if (select == 3) {
+		else if (select == "3") {
 			cout << "修改账单" << endl;
 			Manage->editBill();
 		}
-		else if (select == 4) {
+		else if (select == "4") {
 			cout << "删除账单" << endl;
 			Manage->deleteBill();
 		}
@@ -353,22 +351,22 @@ void usrConsole(Identity*& Console) {
 
 		User* Manage = (User*)Console;
 
-		int select = 0;
+		string select;
 		cin >> select;
 
-		if (select == 1) {
+		if (select == "1") {
 			cout << "个人信息" << endl;
 			Manage->showInfo();
 		}
-		else if (select == 2) {
+		else if (select == "2") {
 			cout << "余额充值" << endl;
 			Manage->addCredit();
 		}
-		else if (select == 3) {
+		else if (select == "3") {
 			cout << "列出账单" << endl;
 			Manage->showBill();
 		}
-		else if (select == 4) {
+		else if (select == "4") {
 			cout << "支付账单" << endl;
 			Manage->payBill();
 		}

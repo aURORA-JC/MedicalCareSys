@@ -1,5 +1,5 @@
 // Admin.h - MedicalSys for class CPP Programming
-// version 0.1.1 rc1 - dev at 2020.06.25 - produce by aurorajc
+// version 0.1.2 fixed - dev at 2020.06.25 - produce by aurorajc
 
 #pragma once
 #include <iostream>

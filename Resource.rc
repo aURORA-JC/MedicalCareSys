@@ -52,7 +52,7 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDC_MANIFRAME           ICON                    "C:\\Users\\Aurora\\Downloads\\favicon.ico"
+IDC_MANIFRAME           ICON                    "favicon.ico"
 
 #endif    // 中文(简体，中国) resources
 /////////////////////////////////////////////////////////////////////////////

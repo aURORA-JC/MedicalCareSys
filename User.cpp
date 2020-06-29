@@ -1,5 +1,5 @@
 // User.h - MedicalSys for class CPP Programming
-// version 0.1.1 rc1 - dev at 2020.06.25 - produce by aurorajc
+// version 0.1.2 fixed - dev at 2020.06.25 - produce by aurorajc
 
 #include "User.h"
 
@@ -86,6 +86,7 @@ void User::addCredit() {
 		cout << "操作已取消！" << endl;
 		system("pause");
 		system("cls");
+		return;
 	}
 
 }
@@ -224,11 +225,11 @@ void User::updateUser(){
 
 // 权限检查函数
 bool User::checkRights(long long id){
-	bool right;
+	bool right = false;
 	for (vector<long long>::iterator it = rights.begin(); it != rights.end(); it++) {
 		if (id == *it) {
 			right = true;
 		}
 	}
-	return false;
+	return right;
 }
